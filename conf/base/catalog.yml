@@ -1,0 +1,49 @@
+# Raw data
+raw_data_path:
+  type: text.TextDataset
+  filepath: data/01_raw/raw_data_path.txt
+
+raw_data:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/pg15training.csv
+
+# Intermediate data
+preprocessed_data:
+  type: pandas.ParquetDataset
+  filepath: data/02_intermediate/preprocessed_data.parquet
+
+# Model input data
+X_train:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/X_train.parquet
+
+X_test:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/X_test.parquet
+
+y_train:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/y_train.parquet
+  save_args:
+    engine: pyarrow
+
+y_test:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/y_test.parquet
+  save_args:
+    engine: pyarrow
+
+# Model outputs
+best_hyperparameters:
+  type: pickle.PickleDataset
+  filepath: data/04_model/best_hyperparameters.pkl
+  versioned: true
+
+trained_model:
+  type: pickle.PickleDataset
+  filepath: data/04_model/trained_model.pkl
+  versioned: true
+
+model_metrics:
+  type: json.JSONDataset
+  filepath: data/06_reporting/model_metrics.json 

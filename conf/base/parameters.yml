@@ -1,0 +1,22 @@
+# Data processing parameters
+data_url: "https://github.com/dutangc/CASdatasets/raw/refs/heads/master/data/pg15training.rda"
+output_directory: "data/raw"
+file_name: "pg15training.csv"
+categorical_columns:
+  - "CalYear"
+  - "Gender"
+  - "Type"
+  - "Category"
+  - "Occupation"
+  - "SubGroup2"
+  - "Group2"
+  - "Group1"
+test_size: 0.2
+random_state: 42
+
+# Model training parameters
+n_trials: 20
+
+# Output directories
+model_output_directory: "data/models"
+metrics_output_directory: "data/metrics" 
