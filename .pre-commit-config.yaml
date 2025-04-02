@@ -1,33 +1,31 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0 # Use a recent tag
+    rev: v5.0.0
     hooks:
     -   id: check-yaml
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
 -   repo: https://github.com/psf/black
-    rev: 25.1.0 # Use a recent stable version
+    rev: 25.1.0
     hooks:
     -   id: black
         language_version: python3.11 # Match the project's python version
 -   repo: https://github.com/pycqa/isort
-    rev: 6.0.1 # Use a recent stable version
+    rev: 6.0.1
     hooks:
     -   id: isort
         name: isort (python)
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version. Optional: Ruff suggests using the latest stable release.
-    rev: 'v0.11.2' # Use a recent stable version
+    rev: 'v0.11.2'
     hooks:
     # Run the linter.
     -   id: ruff
-        args: [--fix] # Enable auto-fixing
-    # Uncomment if you want ruff to handle formatting as well:
-    # -   id: ruff-format
+        args: [--fix]
+    -   id: ruff-format
 -   repo: local
     hooks:
-    # Remove the pylint hook
-    # -   id: pylint
+
     -   id: pytest
         name: pytest
         entry: pytest

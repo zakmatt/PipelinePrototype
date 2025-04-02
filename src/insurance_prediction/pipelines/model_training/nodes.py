@@ -43,8 +43,8 @@ def objective(trial, X_train, y_train, random_state):
         "colsample_bytree": trial.suggest_float("colsample_bytree", 0.5, 1.0),
     }
 
-    # Initialize the model with the chosen set of hyperparameters
-    model = LGBMClassifier(**param, verbosity=-1)
+    # Initialize the model with the chosen set of hyperparameters and random_state
+    model = LGBMClassifier(**param, random_state=random_state, verbosity=-1)
 
     # Train the model
     model.fit(X_train_sub, y_train_values)
@@ -97,7 +97,10 @@ def tune_model_hyperparameters(
 
 
 def train_model(
-    X_train: pd.DataFrame, y_train: pd.DataFrame, best_params: Dict[str, Any]
+    X_train: pd.DataFrame,
+    y_train: pd.DataFrame,
+    best_params: Dict[str, Any],
+    random_state: int,
 ) -> LGBMClassifier:
     """Train a model with the best hyperparameters.
 
@@ -105,6 +108,7 @@ def train_model(
         X_train: Training features
         y_train: Training targets (DataFrame)
         best_params: Best hyperparameters from tuning
+        random_state: Random seed for reproducibility
 
     Returns:
         Trained model
@@ -112,8 +116,8 @@ def train_model(
     # Extract target values as array
     y_train_values = y_train["target"].values
 
-    # Train the final model with the best hyperparameters
-    model = LGBMClassifier(**best_params)
+    # Train the final model with the best hyperparameters and random_state
+    model = LGBMClassifier(**best_params, random_state=random_state, verbosity=-1)
     model.fit(X_train, y_train_values)
 
     return model

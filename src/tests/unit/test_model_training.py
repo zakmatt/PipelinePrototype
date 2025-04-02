@@ -32,8 +32,10 @@ def test_train_model(sample_data):
         "n_estimators": 50,
         "learning_rate": 0.1,
     }
+    random_state = 42  # Define a random state for the test
 
-    model = train_model(X_train, y_train, best_params)
+    # Pass random_state to train_model
+    model = train_model(X_train, y_train, best_params, random_state)
 
     assert isinstance(model, LGBMClassifier)
     # Check if the model appears to be fitted (LGBM uses _Booster attribute)
