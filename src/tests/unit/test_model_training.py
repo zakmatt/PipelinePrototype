@@ -57,4 +57,3 @@ def test_tune_model_hyperparameters(sample_data):
     assert "learning_rate" in best_params
     # Check for fixed keys added after tuning
     assert best_params["objective"] == "binary"
-    assert best_params["n_jobs"] == -1

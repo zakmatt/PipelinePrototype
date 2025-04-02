@@ -61,10 +61,9 @@ def preprocess_data(data: pd.DataFrame, categorical_columns: List[str]) -> pd.Da
     Returns:
         Preprocessed data
     """
-    # Create the target column
+
     data["target"] = data["Numtppd"].apply(lambda x: 1 if x != 0 else 0)
 
-    # Drop some columns
     data = data.drop(columns=["Numtppd", "Numtpbi", "Indtppd", "Indtpbi"])
 
     # Add one hot encoder processor
@@ -92,7 +91,6 @@ def split_data(
     X = data.drop("target", axis=1)
     y = data["target"]
 
-    # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=random_state
     )

@@ -5,6 +5,7 @@ from typing import Any, Dict
 import optuna
 import pandas as pd
 from lightgbm import LGBMClassifier
+from optuna.samplers import TPESampler
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 
@@ -21,7 +22,7 @@ def objective(trial, X_train, y_train, random_state):
     Returns:
         Accuracy score on validation set
     """
-    # Split the data into training and validation sets
+
     X_train_sub, X_val, y_train_sub, y_val = train_test_split(
         X_train, y_train, test_size=0.2, random_state=random_state
     )
@@ -33,7 +34,7 @@ def objective(trial, X_train, y_train, random_state):
     # Define the hyperparameter search space
     param = {
         "objective": "binary",
-        "n_jobs": -1,
+        "n_jobs": 1,
         "n_estimators": trial.suggest_int("n_estimators", 10, 200),
         "learning_rate": trial.suggest_float("learning_rate", 0.001, 0.3, log=True),
         "max_depth": trial.suggest_int("max_depth", 3, 10),
@@ -46,13 +47,10 @@ def objective(trial, X_train, y_train, random_state):
     # Initialize the model with the chosen set of hyperparameters and random_state
     model = LGBMClassifier(**param, random_state=random_state, verbosity=-1)
 
-    # Train the model
     model.fit(X_train_sub, y_train_values)
 
-    # Make predictions on the validation set
     y_pred = model.predict(X_val)
 
-    # Calculate accuracy
     accuracy = accuracy_score(y_val_values, y_pred)
 
     return accuracy
@@ -75,8 +73,11 @@ def tune_model_hyperparameters(
     # Setting the logging level WARNING, the INFO logs are suppressed
     optuna.logging.set_verbosity(optuna.logging.WARNING)
 
-    # Create a study object and optimize the objective function
-    study = optuna.create_study(direction="maximize")
+    # Create a seeded sampler for reproducibility
+    sampler = TPESampler(seed=random_state)
+
+    # Create a study object with the seeded sampler and optimize the objective function
+    study = optuna.create_study(direction="maximize", sampler=sampler)
     study.optimize(
         lambda trial: objective(trial, X_train, y_train, random_state),
         n_trials=n_trials,
@@ -89,7 +90,6 @@ def tune_model_hyperparameters(
     best_params.update(
         {
             "objective": "binary",
-            "n_jobs": -1,
         }
     )
 

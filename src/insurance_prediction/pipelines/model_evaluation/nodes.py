@@ -27,10 +27,9 @@ def evaluate_model(
     Returns:
         Dictionary of model metrics
     """
-    # Extract target values as array
+
     y_test_values = y_test["target"].values
 
-    # Make predictions
     y_pred = model.predict(X_test)
 
     # Calculate metrics
@@ -55,10 +54,9 @@ def plot_confusion_matrix(
         y_test: Test targets (DataFrame)
         output_directory: Directory to save the plot
     """
-    # Extract target values as array
+
     y_test_values = y_test["target"].values
 
-    # Make predictions
     y_pred = model.predict(X_test)
 
     # Create plot directory if it doesn't exist
@@ -70,6 +68,5 @@ def plot_confusion_matrix(
     ConfusionMatrixDisplay.from_predictions(y_test_values, y_pred)
     plt.title("Confusion Matrix")
 
-    # Save plot
     plt.savefig(plot_dir / "confusion_matrix.png", bbox_inches="tight")
     plt.close()
