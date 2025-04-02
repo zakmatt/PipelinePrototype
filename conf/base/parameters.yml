@@ -19,4 +19,4 @@ n_trials: 20
 
 # Output directories
 model_output_directory: "data/models"
-metrics_output_directory: "data/metrics" 
+metrics_output_directory: "data/metrics"

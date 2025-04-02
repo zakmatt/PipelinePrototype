@@ -2,11 +2,11 @@
 
 import io
 from pathlib import Path
-from typing import Dict, List, Tuple, Any
+from typing import List, Tuple
 
 import pandas as pd
-import requests
 import rdata
+import requests
 from sklearn.model_selection import train_test_split
 
 
@@ -23,18 +23,18 @@ def download_data(url: str, output_directory: str, file_name: str) -> str:
     """
     # Create the output directory if it doesn't exist
     Path(output_directory).mkdir(parents=True, exist_ok=True)
-    
+
     # Full path to save the data
     output_path = Path(output_directory) / file_name
-    
+
     # Download the file from the URL
     response = requests.get(url)
-    
+
     # Write the content to a file
     f = io.BytesIO(response.content)
-    r_data = rdata.read_rda(f)['pg15training']
+    r_data = rdata.read_rda(f)["pg15training"]
     r_data.to_csv(output_path, index=False)
-    
+
     # Return the path as a string for the TextDataSet
     return str(output_path)
 
@@ -62,14 +62,14 @@ def preprocess_data(data: pd.DataFrame, categorical_columns: List[str]) -> pd.Da
         Preprocessed data
     """
     # Create the target column
-    data['target'] = data['Numtppd'].apply(lambda x: 1 if x != 0 else 0)
-    
+    data["target"] = data["Numtppd"].apply(lambda x: 1 if x != 0 else 0)
+
     # Drop some columns
     data = data.drop(columns=["Numtppd", "Numtpbi", "Indtppd", "Indtpbi"])
-    
+
     # Add one hot encoder processor
     data = pd.get_dummies(data, columns=categorical_columns)
-    
+
     return data
 
 
@@ -90,15 +90,15 @@ def split_data(
         y_test: Test targets (as DataFrame)
     """
     X = data.drop("target", axis=1)
-    y = data['target']
-    
+    y = data["target"]
+
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, random_state=random_state
     )
-    
+
     # Convert Series to DataFrames for compatibility with ParquetDataSet
-    y_train_df = pd.DataFrame(y_train, columns=['target'])
-    y_test_df = pd.DataFrame(y_test, columns=['target'])
-    
-    return X_train, X_test, y_train_df, y_test_df 
+    y_train_df = pd.DataFrame(y_train, columns=["target"])
+    y_test_df = pd.DataFrame(y_test, columns=["target"])
+
+    return X_train, X_test, y_train_df, y_test_df

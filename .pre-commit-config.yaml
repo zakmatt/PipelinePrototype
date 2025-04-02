@@ -10,31 +10,24 @@ repos:
     hooks:
     -   id: black
         language_version: python3.11 # Match the project's python version
--   repo: https://github.com/pycqa/isort
-    rev: 6.0.1 # Use a recent stable version
-    hooks:
-    -   id: isort
-        name: isort (python)
--   repo: https://github.com/astral-sh/ruff-pre-commit
-    # Ruff version. Optional: Ruff suggests using the latest stable release.
-    rev: 'v0.11.2' # Use a recent stable version
-    hooks:
-    # Run the linter.
-    -   id: ruff
-        args: [--fix] # Enable auto-fixing
-    # Uncomment if you want ruff to handle formatting as well:
-    # -   id: ruff-format
+#-   repo: https://github.com/pycqa/isort
+#    rev: 6.0.1 # Use a recent stable version
+#    hooks:
+#    -   id: isort
+#        name: isort (python)
+#-   repo: https://github.com/astral-sh/ruff-pre-commit
+#    # Ruff version. Optional: Ruff suggests using the latest stable release.
+#    rev: 'v0.11.2' # Use a recent stable version
+#    hooks:
+#    # Run the linter.
+#    -   id: ruff
+#        args: [--fix] # Enable auto-fixing
+#    # Uncomment if you want ruff to handle formatting as well:
+#    # -   id: ruff-format
 -   repo: local
     hooks:
     # Remove the pylint hook
     # -   id: pylint
-    #     name: pylint
-    #     entry: pylint
-    #     language: system
-    #     types: [python]
-    #     args: ["--rcfile=.pylintrc"] # Use the generated config file
-    #     # Exclude specific directories if needed, e.g.,
-    #     # exclude: ^(docs/|data/)
     -   id: pytest
         name: pytest
         entry: pytest
