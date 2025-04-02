@@ -26,7 +26,8 @@ class ProjectHooks:
             "03_primary",
             "04_model",
             "05_model_input",
-            "06_reportingplots",
+            "06_reporting",
+            "plots",
         ]:
             (OUTPUT_DIR / dir_name).mkdir(parents=True, exist_ok=True)
 
