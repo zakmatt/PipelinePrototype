@@ -3,8 +3,8 @@
 from kedro.pipeline import Pipeline, node, pipeline
 
 from insurance_prediction.pipelines.model_training.nodes import (
-    tune_model_hyperparameters,
     train_model,
+    tune_model_hyperparameters,
 )
 
 
@@ -36,9 +36,10 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "X_train",
                     "y_train",
                     "best_hyperparameters",
+                    "params:random_state",
                 ],
                 outputs="trained_model",
                 name="train_model_node",
             ),
         ]
-    ) 
+    )

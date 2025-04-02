@@ -1,0 +1,19 @@
+# This is the main configuration file for a Kedro project
+
+# Project configuration
+project_name: "insurance_prediction"
+project_version: "0.19.12"
+
+# Pipeline configuration
+source_dir: "src"
+config_patterns:
+  catalog: ["conf/base/catalog.yml", "conf/*/catalog.yml"]
+  parameters: ["conf/base/parameters.yml", "conf/*/parameters.yml"]
+  credentials: ["conf/base/credentials.yml", "conf/*/credentials.yml"]
+
+# Module configuration
+module_name: "insurance_prediction"
+
+# Hooks configuration
+hooks:
+  - insurance_prediction.settings:HOOKS

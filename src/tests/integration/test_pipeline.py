@@ -3,8 +3,8 @@
 from kedro.pipeline import Pipeline
 
 from insurance_prediction.pipelines import data_processing as dp
-from insurance_prediction.pipelines import model_training as mt
 from insurance_prediction.pipelines import model_evaluation as me
+from insurance_prediction.pipelines import model_training as mt
 
 
 class TestPipelines:
@@ -14,16 +14,16 @@ class TestPipelines:
         """Test that the data processing pipeline can be created."""
         pipeline = dp.create_pipeline()
         assert isinstance(pipeline, Pipeline)
-        
+
         # Check that the pipeline has the expected nodes
         expected_nodes = [
-            "download_data_node", 
-            "load_data_node", 
-            "preprocess_data_node", 
-            "split_data_node"
+            "download_data_node",
+            "load_data_node",
+            "preprocess_data_node",
+            "split_data_node",
         ]
         node_names = [node.name for node in pipeline.nodes]
-        
+
         for expected_node in expected_nodes:
             assert expected_node in node_names
 
@@ -31,14 +31,11 @@ class TestPipelines:
         """Test that the model training pipeline can be created."""
         pipeline = mt.create_pipeline()
         assert isinstance(pipeline, Pipeline)
-        
+
         # Check that the pipeline has the expected nodes
-        expected_nodes = [
-            "tune_model_hyperparameters_node",
-            "train_model_node"
-        ]
+        expected_nodes = ["tune_model_hyperparameters_node", "train_model_node"]
         node_names = [node.name for node in pipeline.nodes]
-        
+
         for expected_node in expected_nodes:
             assert expected_node in node_names
 
@@ -46,13 +43,10 @@ class TestPipelines:
         """Test that the model evaluation pipeline can be created."""
         pipeline = me.create_pipeline()
         assert isinstance(pipeline, Pipeline)
-        
+
         # Check that the pipeline has the expected nodes
-        expected_nodes = [
-            "evaluate_model_node",
-            "plot_confusion_matrix_node"
-        ]
+        expected_nodes = ["evaluate_model_node", "plot_confusion_matrix_node"]
         node_names = [node.name for node in pipeline.nodes]
-        
+
         for expected_node in expected_nodes:
-            assert expected_node in node_names 
+            assert expected_node in node_names

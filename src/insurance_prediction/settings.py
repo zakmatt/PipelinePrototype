@@ -1,4 +1,5 @@
 """Project settings."""
+
 from pathlib import Path
 
 # Instantiate and configure the project settings object
@@ -18,7 +19,15 @@ class ProjectHooks:
     def after_context_created(self, context):
         """Hook to execute after the Kedro context is created."""
         # Create necessary directories
-        for dir_name in ["raw", "01_raw", "02_intermediate", "03_primary", "04_model", "05_model_input", "06_reporting", "07_pipeline", "08_reporting", "plots"]:
+        for dir_name in [
+            "raw",
+            "01_raw",
+            "02_intermediate",
+            "03_primary",
+            "04_model",
+            "05_model_input",
+            "06_reportingplots",
+        ]:
             (OUTPUT_DIR / dir_name).mkdir(parents=True, exist_ok=True)
 
 
@@ -35,4 +44,4 @@ class NodeHooks:
         print(f"Completed node: {node.name}")
 
 
-HOOKS = (ProjectHooks(), NodeHooks()) 
+HOOKS = (ProjectHooks(), NodeHooks())

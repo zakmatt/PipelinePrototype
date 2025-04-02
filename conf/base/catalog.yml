@@ -46,4 +46,4 @@ trained_model:
 
 model_metrics:
   type: json.JSONDataset
-  filepath: data/06_reporting/model_metrics.json 
+  filepath: data/06_reporting/model_metrics.json

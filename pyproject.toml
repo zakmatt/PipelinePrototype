@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=38.0.0", "wheel>=0.31.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.kedro]
+package_name = "insurance_prediction"
+project_name = "Insurance Prediction"
+kedro_init_version = "0.19.12"
+
+[project]
+name = "insurance_prediction"
+dynamic = ["version"]
+requires-python = ">=3.9"
+
+[project.scripts]
+insurance-prediction = "insurance_prediction.__main__:main"
+
+[project.entry-points."kedro.hooks"]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "pre-commit",
+    "pytest",
+    "black",
+    "isort",
+    "pytest-cov",
+]
+
+[tool.kedro_telemetry]
+project_id = "018e59db8a40434cb5818c100f67fe54"
+
+[tool.isort]
+profile = "black"

@@ -23,7 +23,11 @@ def create_pipeline(**kwargs) -> Pipeline:
         [
             node(
                 func=download_data,
-                inputs=["params:data_url", "params:output_directory", "params:file_name"],
+                inputs=[
+                    "params:data_url",
+                    "params:output_directory",
+                    "params:file_name",
+                ],
                 outputs="raw_data_path",
                 name="download_data_node",
             ),
@@ -46,4 +50,4 @@ def create_pipeline(**kwargs) -> Pipeline:
                 name="split_data_node",
             ),
         ]
-    ) 
+    )

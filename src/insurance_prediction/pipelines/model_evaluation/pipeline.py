@@ -32,4 +32,4 @@ def create_pipeline(**kwargs) -> Pipeline:
                 name="plot_confusion_matrix_node",
             ),
         ]
-    ) 
+    )
