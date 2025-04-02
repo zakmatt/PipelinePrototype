@@ -24,6 +24,8 @@ COPY pyproject.toml .
 RUN pip install --no-cache-dir .
 
 COPY conf conf
+# Ensure the local conf directory exists, even if empty
+RUN mkdir -p conf/local
 
 RUN chown -R kedro:kedro /app
 
