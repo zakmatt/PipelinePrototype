@@ -16,5 +16,15 @@ requires-python = ">=3.9"
 insurance-prediction = "insurance_prediction.__main__:main"
 
 [project.entry-points."kedro.hooks"]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "pre-commit",
+    "pytest",
+    "black",
+    "isort",
+]
+
 [tool.kedro_telemetry]
 project_id = "018e59db8a40434cb5818c100f67fe54"
